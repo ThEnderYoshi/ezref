@@ -1,0 +1,183 @@
+[gd_scene load_steps=11 format=3 uid="uid://crr2dlt7gl77o"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_ks6fm"]
+[ext_resource type="Script" path="res://zoom.gd" id="2_8gn1b"]
+[ext_resource type="Texture2D" uid="uid://l0c36g6lyhxf" path="res://icon.svg" id="2_wtfm7"]
+[ext_resource type="Script" path="res://panner.gd" id="4_1vgt2"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_xs7mf"]
+device = -1
+ctrl_pressed = true
+keycode = 79
+
+[sub_resource type="Shortcut" id="Shortcut_wcgqs"]
+events = [SubResource("InputEventKey_xs7mf")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ln8ok"]
+device = -1
+ctrl_pressed = true
+keycode = 86
+
+[sub_resource type="Shortcut" id="Shortcut_thvof"]
+events = [SubResource("InputEventKey_ln8ok")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_akudl"]
+device = -1
+ctrl_pressed = true
+keycode = 48
+
+[sub_resource type="Shortcut" id="Shortcut_45xeh"]
+events = [SubResource("InputEventKey_akudl")]
+
+[node name="Main" type="Control" node_paths=PackedStringArray("the_image", "toolbar", "controls", "file_dialog")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ks6fm")
+the_image = NodePath("TheImage")
+toolbar = NodePath("Toolbar")
+controls = NodePath("Controls")
+file_dialog = NodePath("FileDialog")
+
+[node name="NoImage" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -68.0
+offset_right = 128.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "No image loaded."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TheImage" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 320)
+mouse_default_cursor_shape = 6
+texture = ExtResource("2_wtfm7")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Toolbar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -48.0
+offset_bottom = -16.0
+grow_horizontal = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Toolbar"]
+layout_mode = 2
+
+[node name="Open" type="Button" parent="Toolbar/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Open an image"
+shortcut = SubResource("Shortcut_wcgqs")
+text = "Open"
+
+[node name="Paste" type="Button" parent="Toolbar/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Paste an image from the clipboard"
+shortcut = SubResource("Shortcut_thvof")
+text = "Paste"
+
+[node name="Filler" type="Control" parent="Toolbar/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LockControls" type="CheckButton" parent="Toolbar/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Toggle the pan and zoom controls"
+text = "Lock Pan/Zoom"
+
+[node name="NearestNeighbor" type="CheckButton" parent="Toolbar/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Toggle between Linear (blurry) and Nearest Neighbor (pixely) filters"
+text = "Nearest Neighbor"
+
+[node name="Controls" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Controls"]
+layout_mode = 2
+alignment = 2
+
+[node name="Zoom" type="HSlider" parent="Controls/HFlowContainer" node_paths=PackedStringArray("label", "the_image")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "(Zoom in: Ctrl+= / Zoom out: Ctrl+-)
+The image's zoom"
+min_value = 50.0
+max_value = 1600.0
+value = 100.0
+exp_edit = true
+scrollable = false
+script = ExtResource("2_8gn1b")
+label = NodePath("../ZoomLabel")
+the_image = NodePath("../../../TheImage")
+
+[node name="ZoomLabel" type="Label" parent="Controls/HFlowContainer"]
+custom_minimum_size = Vector2(55, 0)
+layout_mode = 2
+text = "%d%%"
+
+[node name="Filler" type="Control" parent="Controls/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Panner" type="Node2D" parent="Controls/HFlowContainer" node_paths=PackedStringArray("the_image")]
+script = ExtResource("4_1vgt2")
+the_image = NodePath("../../../TheImage")
+
+[node name="Zoom100Percent" type="Button" parent="Controls/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Set zoom to 100%"
+shortcut = SubResource("Shortcut_45xeh")
+text = "100%"
+
+[node name="CenterImage" type="Button" parent="Controls/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Move the image to the center of the screen"
+text = "Center Image"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bmp ; BMP", "*.dds ; DirectDraw Surface", "*.ktx ; Khronos Texture", "*.exr ; OpenEXR", "*.hdr ; Radiance HDR", "*.jpg, *.jpeg ; JPEG", "*.png ; PNG", "*.svg ; SVG (limited support)", "*.webp ; WebP")
+
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="mouse_entered" from="TheImage" to="Controls/HFlowContainer/Panner" method="_on_the_image_mouse_entered"]
+[connection signal="mouse_exited" from="TheImage" to="Controls/HFlowContainer/Panner" method="_on_the_image_mouse_exited"]
+[connection signal="pressed" from="Toolbar/HFlowContainer/Open" to="." method="_on_open_pressed"]
+[connection signal="pressed" from="Toolbar/HFlowContainer/Paste" to="." method="_on_paste_pressed"]
+[connection signal="toggled" from="Toolbar/HFlowContainer/LockControls" to="." method="_on_lock_controls_toggled"]
+[connection signal="toggled" from="Toolbar/HFlowContainer/NearestNeighbor" to="." method="_on_nearest_neighbor_toggled"]
+[connection signal="drag_ended" from="Controls/HFlowContainer/Zoom" to="Controls/HFlowContainer/Zoom" method="_on_drag_ended"]
+[connection signal="drag_started" from="Controls/HFlowContainer/Zoom" to="Controls/HFlowContainer/Zoom" method="_on_drag_started"]
+[connection signal="pressed" from="Controls/HFlowContainer/Zoom100Percent" to="Controls/HFlowContainer/Zoom" method="_on_zoom_100_percent_pressed"]
+[connection signal="pressed" from="Controls/HFlowContainer/CenterImage" to="Controls/HFlowContainer/Panner" method="_on_center_image_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
