@@ -4,7 +4,7 @@ A simple, always-on-top window that displays reference images.
 
 ## Download
 
-See the latest release in the repo's releases page. &rightarrow;
+[See the latest release in the repo's releases page.](https://github.com/ThEnderYoshi/ezref/releases/latest) &rightarrow;
 
 > **Note:** Currently only `Windows x86 64-bit` is pre-exported. If you need the
 > tool exported to another target, you will have to manually export it yourself.
