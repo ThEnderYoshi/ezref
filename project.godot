@@ -16,6 +16,8 @@ config/version="1.1.0"
 config/tags=PackedStringArray("2d", "tool")
 run/main_scene="uid://cbsh2xrkj5w5p"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/fullsize=false
+boot_splash/image="uid://d4h31s7ky10hh"
 config/icon="res://icon.svg"
 
 [display]

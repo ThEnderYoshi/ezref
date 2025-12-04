@@ -233,7 +233,5 @@ filters = PackedStringArray("*.bmp ; BMP", "*.dds ; DirectDraw Surface", "*.ktx 
 [connection signal="value_changed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_value_changed"]
 [connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ResetZoom" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_reset_zoom_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/CenterImage" to="Camera2D" method="_on_center_image_pressed"]
-[connection signal="button_down" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/Resize" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/Resize" method="_on_button_down"]
-[connection signal="button_up" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/Resize" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/Resize" method="_on_button_up"]
 [connection signal="canceled" from="Ui/OpenImage" to="." method="_on_open_image_canceled"]
 [connection signal="file_selected" from="Ui/OpenImage" to="." method="_on_open_image_file_selected"]
