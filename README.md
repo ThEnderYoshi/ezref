@@ -17,27 +17,27 @@ A simple, always-on-top window that displays reference images.
 
 ## Usage
 
-If you hover the cursor near the top of the window, a toolbar will show up. The
-buttons on the toolbar are, from left to right:
+If you hover the cursor over the window, two bars will appear with
+some controls:
 
-- `Open` (<kbd>Ctrl</kbd> + <kbd>O</kbd>): Brings up a file dialog to open an
+- `Open` (<kbd>Ctrl</kbd>+<kbd>O</kbd>): Brings up a file dialog to open an
   image from the file system.
-- `Paste` (<kbd>Ctrl</kbd> + <kbd>V</kbd>): If you have an image on your
+
+- `Paste` (<kbd>Ctrl</kbd>+<kbd>V</kbd>): If you have an image on your
   clipboard, it will be pasted into the window.
 
   > [CAUTION!]
-  > Trying to paste an image copied from a selection in Krita will  crash the
+  > Trying to paste an image copied from a selection in Krita will crash the
   > program. I have no idea how to fix this.
-- `Lock Pan/Zoom`: Toggles panning/zooming. Also toggles control bar (bottom).
-- `Nearest Neighbor`: Toggles whether the image uses Linear (blurry) or Nearest
-  Neighbor (pixelly) filtering when scaling.
 
-If `Lock Pan/Zoom` is disabled, you can:
+- `Filter`: Allows you to determine the filter used to scale the image.
+  Currently supports `Linear` (blurry) and `Nearest Neighbor` (pixel-y).
 
-- Click + Drag to move the image.
-  - The `Center Image` button resets the image's position.
-- Scroll (or <kbd>Ctrl</kbd> + <kbd>=</kbd> and <kbd>Ctrl</kbd> + <kbd>-</kbd>)
-  to zoom in and out.
-  - You can also drag the zoom slider in the bottom bar.
-  - The `100%` button (<kbd>Ctrl</kbd> + <kbd>0</kbd>) resets the zoom back
-    to 100%.
+- The slider on the bottom (also controllable with the scroll wheel or
+  <kbd>Ctrl</kbd>+<kbd>=</kbd>/<kbd>Ctrl</kbd>+<kbd>-</kbd>) can be used to zoom
+  in and out.
+
+- The `100%` button (<kbd>Ctrl</kbd>+<kbd>0</kbd>) resets the zoom back to 100%.
+
+Additionally, you can click + drag to pan the image. `Center Image` resets
+the panning.
