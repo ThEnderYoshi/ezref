@@ -17,6 +17,11 @@ Some freshening up after over a year.
 - Fixed the jank with zooming.
 - Shortcuts with <kbd>Ctrl</kbd> now also accept <kbd>⌘</kbd> (although this
   program still isn't exported to MacOS).
+- Made the window borderless to save space.
+  - The close and minimize buttons are now part of the upper toolbar.
+  - Due to some limitations, an extra button was added to resize the window.
+- Added a checkered background.
+- Disabled V-Sync for lower latency.
 
 ## 1.0.0
 
