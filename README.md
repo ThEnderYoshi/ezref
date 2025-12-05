@@ -15,13 +15,15 @@ A simple, always-on-top window that displays reference images.
 > The `main` branch is the current, stable release. The `dev` branch is the main
 > development branch.
 
+![the initial state of the program](./.repo/screenshot_01.png)
+
 ## Download
 
 [See the latest release in the repo's releases page.](https://github.com/ThEnderYoshi/ezref/releases/latest)
 
 > [!NOTE]
 > Currently only `Windows x86 64-bit` is pre-exported. If you need the tool
-> exported to another target, you will have to manually export it yourself.
+> exported to another target, you will have to manually do it yourself.
 
 ## Usage
 
@@ -38,8 +40,11 @@ some controls:
   > Trying to paste an image copied from a selection in Krita will crash the
   > program. I have no idea how to fix this.
 
-- `Filter`: Allows you to determine the filter used to scale the image.
-  Currently supports `Linear` (blurry) and `Nearest Neighbor` (pixel-y).
+- `Settings`: Brings up the display settings window. It contains the following:
+  - `Filter`: Allows you to determine the filter used to scale the image.
+    Currently supports `Linear` (blurry) and `Nearest Neighbor` (pixel-y).
+  - `Background`: Changes the background texture between `Checkered` (light or
+    dark) and `Transparent`.
 
 - The slider on the bottom (also controllable with the scroll wheel or
   <kbd>Ctrl</kbd>+<kbd>=</kbd>/<kbd>Ctrl</kbd>+<kbd>-</kbd>) can be used to zoom

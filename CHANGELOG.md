@@ -21,6 +21,11 @@ Some freshening up after over a year.
   - The close and minimize buttons are now part of the upper toolbar.
   - Due to some limitations, an extra button was added to resize the window.
 - Added a checkered background.
+- Added a help window.
+- Added a "Display Settings" window.
+  - `Filter` is the original `Nearest Neighbor` toggle.
+  - `Background` can change the background between "Checkered" (light/dark)
+    and "Transparent".
 - Disabled V-Sync for lower latency.
 
 ## 1.0.0

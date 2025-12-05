@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cbsh2xrkj5w5p"]
+[gd_scene load_steps=27 format=3 uid="uid://cbsh2xrkj5w5p"]
 
 [ext_resource type="Script" uid="uid://002ys7cd2w7y" path="res://main.gd" id="1_ks6fm"]
 [ext_resource type="Texture2D" uid="uid://l0c36g6lyhxf" path="res://icon.svg" id="2_wtfm7"]
@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bpqrye5l0qw0g" path="res://icons/paste.svg" id="6_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://pykq2dhb8grp" path="res://icons/resize.svg" id="8_5vw27"]
 [ext_resource type="Texture2D" uid="uid://dh27y12uhmseb" path="res://icons/settings.svg" id="9_w48qg"]
+[ext_resource type="Texture2D" uid="uid://b08mg3ha6f2t1" path="res://icons/help.svg" id="10_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://c5kjj2a7lheev" path="res://settings.tscn" id="13_ycdy4"]
+[ext_resource type="Script" uid="uid://b2k6hkr4xw7ym" path="res://help_window.gd" id="16_yaehf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
 content_margin_left = 0.0
@@ -152,6 +154,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_5vw27")
 [node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
 
+[node name="Help" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Show help window."
+icon = ExtResource("10_2cqfq")
+flat = true
+
 [node name="Minimize" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Minimize."
@@ -233,10 +241,46 @@ visible = false
 background = NodePath("../Background/TextureRect")
 the_image = NodePath("../TheImage")
 
+[node name="HelpWindow" type="AcceptDialog" parent="."]
+oversampling_override = 1.0
+title = "About %s %s"
+size = Vector2i(512, 384)
+popup_window = true
+min_size = Vector2i(512, 0)
+ok_button_text = "Close"
+script = ExtResource("16_yaehf")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HelpWindow"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 335.0
+bbcode_enabled = true
+text = "%s
+
+[ul]
+[img]res://icons/open.svg[/img]: Load image from disk.
+[img]res://icons/paste.svg[/img]: Paste image from the clipboard.
+[img]res://icons/drag.svg[/img] [img]res://icons/resize.svg[/img]: Move/resize window.
+[img]res://icons/settings.svg[/img]: Change display settings (see below).
+Click + Drag: Move image. Press \"Center Image\" to reset the view.
+Scroll/Bottom-left Slider: Zoom in/out. Press \"100%%\" to reset the zoom.
+[/ul]
+
+Hover over the controls to see their shortcuts.
+
+Display settings:
+
+[ul]
+Filter: Image resize filter
+Background: Background color/transparency
+[/ul]"
+
 [connection signal="gui_input" from="Ui/UnderUi" to="Camera2D" method="_on_under_ui_gui_input"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Open" to="." method="_on_open_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Paste" to="." method="_on_paste_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Settings" to="Settings" method="popup_centered"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Help" to="HelpWindow" method="popup_centered"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Minimize" to="." method="_on_minimize_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Close" to="." method="_on_close_pressed"]
 [connection signal="value_changed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_value_changed"]
