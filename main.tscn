@@ -1,17 +1,19 @@
-[gd_scene load_steps=23 format=3 uid="uid://cbsh2xrkj5w5p"]
+[gd_scene load_steps=25 format=3 uid="uid://cbsh2xrkj5w5p"]
 
 [ext_resource type="Script" uid="uid://002ys7cd2w7y" path="res://main.gd" id="1_ks6fm"]
 [ext_resource type="Texture2D" uid="uid://l0c36g6lyhxf" path="res://icon.svg" id="2_wtfm7"]
 [ext_resource type="Script" uid="uid://cqt7aqyc2l0y0" path="res://pan_camera.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://8paja01n7gp5" path="res://zoom_bar.gd" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ck7ll3sqgmnr6" path="res://icons/minimize.svg" id="4_7mycd"]
-[ext_resource type="Texture2D" uid="uid://4eaf1w3kwexw" path="res://background.png" id="4_272bh"]
+[ext_resource type="Texture2D" uid="uid://4eaf1w3kwexw" path="res://background_dark.png" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://cmelyslcn1ek4" path="res://icons/drag.svg" id="5_4c57u"]
 [ext_resource type="Texture2D" uid="uid://bc326e8q817fm" path="res://icons/close.svg" id="5_272bh"]
 [ext_resource type="Texture2D" uid="uid://blwgsbg4tqfww" path="res://icons/open.svg" id="5_dg77c"]
 [ext_resource type="Script" uid="uid://drh00igwiwfv8" path="res://drag_button.gd" id="6_efxa6"]
 [ext_resource type="Texture2D" uid="uid://bpqrye5l0qw0g" path="res://icons/paste.svg" id="6_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://pykq2dhb8grp" path="res://icons/resize.svg" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://dh27y12uhmseb" path="res://icons/settings.svg" id="9_w48qg"]
+[ext_resource type="PackedScene" uid="uid://c5kjj2a7lheev" path="res://settings.tscn" id="13_ycdy4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
 content_margin_left = 0.0
@@ -131,22 +133,17 @@ icon = ExtResource("6_ycdy4")
 [node name="Drag" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 6
 icon = ExtResource("5_4c57u")
 flat = true
 icon_alignment = 1
 script = ExtResource("6_efxa6")
 
-[node name="Filter" type="OptionButton" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
-unique_name_in_owner = true
+[node name="Settings" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
-tooltip_text = "Texture filter."
-selected = 0
-item_count = 2
-popup/item_0/text = "Linear"
-popup/item_0/id = 0
-popup/item_1/text = "Nearest Neighbor"
-popup/item_1/id = 1
+size_flags_vertical = 4
+tooltip_text = "Open the display settings."
+icon = ExtResource("9_w48qg")
 
 [node name="VSeparator" type="VSeparator" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
@@ -211,6 +208,7 @@ text = "Center Image"
 
 [node name="Resize" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 12
 theme_override_styles/normal = SubResource("StyleBoxEmpty_kek77")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_kek77")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_kek77")
@@ -230,10 +228,15 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.bmp ; BMP", "*.dds ; DirectDraw Surface", "*.ktx ; Khronos Texture", "*.exr ; OpenEXR", "*.hdr ; Radiance HDR", "*.jpg, *.jpeg ; JPEG", "*.png ; PNG", "*.svg ; SVG (limited support)", "*.webp ; WebP")
 
+[node name="Settings" parent="." node_paths=PackedStringArray("background", "the_image") instance=ExtResource("13_ycdy4")]
+visible = false
+background = NodePath("../Background/TextureRect")
+the_image = NodePath("../TheImage")
+
 [connection signal="gui_input" from="Ui/UnderUi" to="Camera2D" method="_on_under_ui_gui_input"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Open" to="." method="_on_open_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Paste" to="." method="_on_paste_pressed"]
-[connection signal="item_selected" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Filter" to="." method="_on_filter_item_selected"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Settings" to="Settings" method="popup_centered"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Minimize" to="." method="_on_minimize_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Close" to="." method="_on_close_pressed"]
 [connection signal="value_changed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_value_changed"]
