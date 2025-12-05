@@ -152,17 +152,23 @@ popup/item_1/id = 1
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_5vw27")
 
-[node name="Minimize" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
+layout_mode = 2
+
+[node name="Minimize" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Minimize."
 icon = ExtResource("4_7mycd")
 flat = true
 
-[node name="Close" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
+[node name="Close" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Close."
 icon = ExtResource("5_272bh")
 flat = true
+
+[node name="Spacing" type="Control" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
+layout_mode = 2
 
 [node name="BottomPanel" type="PanelContainer" parent="Ui/VBoxContainer"]
 layout_mode = 2
@@ -228,8 +234,8 @@ filters = PackedStringArray("*.bmp ; BMP", "*.dds ; DirectDraw Surface", "*.ktx 
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Open" to="." method="_on_open_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Paste" to="." method="_on_paste_pressed"]
 [connection signal="item_selected" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Filter" to="." method="_on_filter_item_selected"]
-[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Minimize" to="." method="_on_minimize_pressed"]
-[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Minimize" to="." method="_on_minimize_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Close" to="." method="_on_close_pressed"]
 [connection signal="value_changed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_value_changed"]
 [connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ResetZoom" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_reset_zoom_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/CenterImage" to="Camera2D" method="_on_center_image_pressed"]

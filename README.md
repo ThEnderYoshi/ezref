@@ -1,5 +1,14 @@
 # EZRef
 
+<picture>
+  <source source="./splash.png" media="(prefers-color-scheme: dark)" />
+  <source
+    source="./.repo/logo_dark.png"
+    media="(prefers-color-scheme: light)"
+  />
+  <img src="./splash.png" alt="EZRef logo"/>
+</picture>
+
 A simple, always-on-top window that displays reference images.
 
 > [!NOTE]
@@ -9,7 +18,6 @@ A simple, always-on-top window that displays reference images.
 ## Download
 
 [See the latest release in the repo's releases page.](https://github.com/ThEnderYoshi/ezref/releases/latest)
-&rightarrow;
 
 > [!NOTE]
 > Currently only `Windows x86 64-bit` is pre-exported. If you need the tool
