@@ -1,9 +1,9 @@
 # EZRef
 
 <picture>
-  <source source="./splash.png" media="(prefers-color-scheme: dark)" />
+  <source srcset="./splash.png" media="(prefers-color-scheme: dark)" />
   <source
-    source="./.repo/logo_dark.png"
+    srcset="./.repo/logo_dark.png"
     media="(prefers-color-scheme: light)"
   />
   <img src="./splash.png" alt="EZRef logo"/>
