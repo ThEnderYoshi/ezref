@@ -36,7 +36,7 @@ some controls:
 - `Paste` (<kbd>Ctrl</kbd>+<kbd>V</kbd>): If you have an image on your
   clipboard, it will be pasted into the window.
 
-  > [CAUTION!]
+  > [!CAUTION]
   > Trying to paste an image copied from a selection in Krita will crash the
   > program. I have no idea how to fix this.
 
