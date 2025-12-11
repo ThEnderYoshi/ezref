@@ -14,6 +14,8 @@ Some freshening up after over a year.
     of only the top bar appearing when the mouse is near the top), removing the
     need for the "Lock Pan/Zoom" toggle.
   - Added tooltips to most of the interactive UI elements.
+  - Renamed the "100%" button "1:1" to avoid the UI confusingly reading
+    "100% 100%".
 - Fixed the jank with zooming.
 - Shortcuts with <kbd>Ctrl</kbd> now also accept <kbd>⌘</kbd> (although this
   program still isn't exported to MacOS).
@@ -21,6 +23,8 @@ Some freshening up after over a year.
   - The close and minimize buttons are now part of the upper toolbar.
   - Due to some limitations, an extra button was added to resize the window.
 - Added a checkered background.
+- Added a "Fit to Screen" button.
+- Added a "Crop" button.
 - Added a help window.
 - Added a "Display Settings" window.
   - `Filter` is the original `Nearest Neighbor` toggle.

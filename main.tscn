@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://cbsh2xrkj5w5p"]
 
 [ext_resource type="Script" uid="uid://002ys7cd2w7y" path="res://main.gd" id="1_ks6fm"]
-[ext_resource type="Texture2D" uid="uid://l0c36g6lyhxf" path="res://icon.svg" id="2_wtfm7"]
+[ext_resource type="Texture2D" uid="uid://d4h31s7ky10hh" path="res://splash.png" id="2_2cqfq"]
 [ext_resource type="Script" uid="uid://cqt7aqyc2l0y0" path="res://pan_camera.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://8paja01n7gp5" path="res://zoom_bar.gd" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ck7ll3sqgmnr6" path="res://icons/minimize.svg" id="4_7mycd"]
@@ -74,7 +74,7 @@ script = ExtResource("1_ks6fm")
 
 [node name="TheImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("2_wtfm7")
+texture = ExtResource("2_2cqfq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -187,6 +187,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "(Ctrl+=/Ctrl+- or scroll)
+Zoom in/out."
 min_value = 50.0
 max_value = 1600.0
 step = 10.0
@@ -206,7 +208,17 @@ horizontal_alignment = 2
 layout_mode = 2
 tooltip_text = "Set the zoom to 100%."
 shortcut = SubResource("Shortcut_lquwl")
-text = "100%"
+text = "1:1"
+
+[node name="FitToScreen" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Fit to Screen."
+text = "Fit"
+
+[node name="CropScreen" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
+layout_mode = 2
+tooltip_text = "Crop the window to fit the image."
+text = "Crop"
 
 [node name="CenterImage" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
 layout_mode = 2
@@ -264,7 +276,8 @@ text = "%s
 [img]res://icons/drag.svg[/img] [img]res://icons/resize.svg[/img]: Move/resize window.
 [img]res://icons/settings.svg[/img]: Change display settings (see below).
 Click + Drag: Move image. Press \"Center Image\" to reset the view.
-Scroll/Bottom-left Slider: Zoom in/out. Press \"100%%\" to reset the zoom.
+Scroll/Bottom-left Slider: Zoom in/out. Press \"1:1\" to reset the zoom and \"Fit\" to fit the image to the window.
+\"Crop\" moves and resizes the window such that it exactly fits the image.
 [/ul]
 
 Hover over the controls to see their shortcuts.
@@ -285,6 +298,8 @@ Background: Background color/transparency
 [connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Close" to="." method="_on_close_pressed"]
 [connection signal="value_changed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_value_changed"]
 [connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ResetZoom" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_reset_zoom_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/FitToScreen" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_fit_to_screen_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/CropScreen" to="." method="_on_crop_screen_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/CenterImage" to="Camera2D" method="_on_center_image_pressed"]
 [connection signal="canceled" from="Ui/OpenImage" to="." method="_on_open_image_canceled"]
 [connection signal="file_selected" from="Ui/OpenImage" to="." method="_on_open_image_file_selected"]

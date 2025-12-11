@@ -50,7 +50,17 @@ some controls:
   <kbd>Ctrl</kbd>+<kbd>=</kbd>/<kbd>Ctrl</kbd>+<kbd>-</kbd>) can be used to zoom
   in and out.
 
-- The `100%` button (<kbd>Ctrl</kbd>+<kbd>0</kbd>) resets the zoom back to 100%.
+- The `1:1` button (<kbd>Ctrl</kbd>+<kbd>0</kbd>) resets the zoom back to 100%.
+
+- The `Fit` button fits the image to the window.
+
+- The `Crop` button moves and resizes the window such that it exactly fits
+  the image.
 
 Additionally, you can click + drag to pan the image. `Center Image` resets
 the panning.
+
+## License
+
+This project is under the MIT License. [Click here for more
+information](./LICENSE).
