@@ -1,76 +1,82 @@
-class_name Main extends Control
+extends Node2D
+## The program's main script.
 
 
-const TOOLBAR_CHECK_PADDING: float = 10.0
+var _should_show_ui := 0
 
-@export var the_image: TextureRect
-@export var toolbar: Control
-@export var controls: Control
-@export var file_dialog: FileDialog
-
-
-var mouse_in_toolbar_zone := false:
-	set(value):
-		if value == mouse_in_toolbar_zone: return
-		
-		mouse_in_toolbar_zone = value
-		var hide_pos: float = -toolbar.size.y
-		toolbar.position.y = hide_pos if mouse_in_toolbar_zone else 0.0
-		
-		var tween: Tween = toolbar.create_tween() \
-				.set_trans(Tween.TRANS_CUBIC) \
-				.set_ease(Tween.EASE_OUT)
-		
-		tween.tween_property(
-			toolbar,
-			^"position:y",
-			0.0 if mouse_in_toolbar_zone else hide_pos,
-			0.2,
-		)
+@onready var _the_image := %TheImage as Sprite2D
+@onready var _camera := %Camera2D as Camera2D
+@onready var _ui_root := %Ui as CanvasLayer
+@onready var _open_image := %OpenImage as FileDialog
 
 
-func _process(_delta: float) -> void:
-	var mouse_pos: Vector2 = get_global_mouse_position()
+func _ready() -> void:
+	var window := get_window()
+	window.mouse_entered.connect(_incr_should_show_ui)
+	window.mouse_exited.connect(_decr_should_show_ui)
+	_ui_root.hide()
+
+
+func _input(event: InputEvent) -> void:
+	if (
+			event is InputEventMouseButton
+			and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
+	):
+		if event.is_pressed():
+			_incr_should_show_ui()
+		else:
+			_decr_should_show_ui()
+
+
+func _incr_should_show_ui() -> void:
+	_should_show_ui += 1
 	
-	mouse_in_toolbar_zone = (
-			get_global_rect().has_point(mouse_pos)
-			and mouse_pos.y <= (toolbar.size.y + TOOLBAR_CHECK_PADDING)
-	)
+	if _should_show_ui == 1:
+		_ui_root.show()
 
 
-func _paste_image() -> void:
-	var image: Image = DisplayServer.clipboard_get_image()
-	if not is_instance_valid(image): return
+func _decr_should_show_ui() -> void:
+	_should_show_ui -= 1
 	
-	var tex := ImageTexture.new()
-	tex.set_image(image)
-	the_image.texture = tex
-
-
-# Toggle whether pan/zoom controls are disabled.
-func _on_lock_controls_toggled(toggled_on: bool) -> void:
-	controls.visible = not toggled_on
-
-
-# Set The Image to the provided image file.
-func _on_file_dialog_file_selected(path: String) -> void:
-	var image: Image = Image.load_from_file(path)
-	var tex := ImageTexture.new()
-	tex.set_image(image)
-	the_image.texture = tex
+	if _should_show_ui == 0:
+		_ui_root.hide()
 
 
 func _on_open_pressed() -> void:
-	file_dialog.popup_centered()
+	_incr_should_show_ui()
+	_open_image.popup_centered()
 
 
 func _on_paste_pressed() -> void:
-	_paste_image()
+	var image := DisplayServer.clipboard_get_image()
+	
+	if is_instance_valid(image):
+		_the_image.texture = ImageTexture.create_from_image(image)
 
 
-func _on_nearest_neighbor_toggled(toggled_on: bool) -> void:
-	the_image.texture_filter = TEXTURE_FILTER_NEAREST if toggled_on else TEXTURE_FILTER_LINEAR
+func _on_open_image_file_selected(path: String) -> void:
+	_the_image.texture = ImageTexture.create_from_image(Image.load_from_file(path))
+	
+	# HACK: If this isn't done, _should_show_ui gets desynced
+	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_decr_should_show_ui()
 
 
-func _on_resized() -> void:
-	the_image.pivot_offset = the_image.size * 0.5
+func _on_open_image_canceled() -> void:
+	_decr_should_show_ui()
+
+
+func _on_minimize_pressed() -> void:
+	get_window().mode = Window.MODE_MINIMIZED
+
+
+func _on_close_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_crop_screen_pressed() -> void:
+	var window := get_window()
+	var texture_size := _the_image.texture.get_size() * _camera.zoom
+	window.position = Vector2(window.position) + _the_image.get_screen_transform().origin.maxf(0.0) - texture_size * 0.5
+	window.size = texture_size
+	_camera.position = Vector2.ZERO

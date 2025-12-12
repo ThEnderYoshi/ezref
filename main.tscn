@@ -1,183 +1,305 @@
-[gd_scene load_steps=11 format=3 uid="uid://crr2dlt7gl77o"]
+[gd_scene load_steps=27 format=3 uid="uid://cbsh2xrkj5w5p"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_ks6fm"]
-[ext_resource type="Script" path="res://zoom.gd" id="2_8gn1b"]
-[ext_resource type="Texture2D" uid="uid://l0c36g6lyhxf" path="res://icon.svg" id="2_wtfm7"]
-[ext_resource type="Script" path="res://panner.gd" id="4_1vgt2"]
+[ext_resource type="Script" uid="uid://002ys7cd2w7y" path="res://main.gd" id="1_ks6fm"]
+[ext_resource type="Texture2D" uid="uid://d4h31s7ky10hh" path="res://splash.png" id="2_2cqfq"]
+[ext_resource type="Script" uid="uid://cqt7aqyc2l0y0" path="res://pan_camera.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://8paja01n7gp5" path="res://zoom_bar.gd" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://ck7ll3sqgmnr6" path="res://icons/minimize.svg" id="4_7mycd"]
+[ext_resource type="Texture2D" uid="uid://4eaf1w3kwexw" path="res://background_dark.png" id="4_272bh"]
+[ext_resource type="Texture2D" uid="uid://cmelyslcn1ek4" path="res://icons/drag.svg" id="5_4c57u"]
+[ext_resource type="Texture2D" uid="uid://bc326e8q817fm" path="res://icons/close.svg" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://blwgsbg4tqfww" path="res://icons/open.svg" id="5_dg77c"]
+[ext_resource type="Script" uid="uid://drh00igwiwfv8" path="res://drag_button.gd" id="6_efxa6"]
+[ext_resource type="Texture2D" uid="uid://bpqrye5l0qw0g" path="res://icons/paste.svg" id="6_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://pykq2dhb8grp" path="res://icons/resize.svg" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://dh27y12uhmseb" path="res://icons/settings.svg" id="9_w48qg"]
+[ext_resource type="Texture2D" uid="uid://b08mg3ha6f2t1" path="res://icons/help.svg" id="10_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://c5kjj2a7lheev" path="res://settings.tscn" id="13_ycdy4"]
+[ext_resource type="Script" uid="uid://b2k6hkr4xw7ym" path="res://help_window.gd" id="16_yaehf"]
 
-[sub_resource type="InputEventKey" id="InputEventKey_xs7mf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[sub_resource type="InputEventKey" id="InputEventKey_h2yge"]
 device = -1
-ctrl_pressed = true
+command_or_control_autoremap = true
 keycode = 79
 
-[sub_resource type="Shortcut" id="Shortcut_wcgqs"]
-events = [SubResource("InputEventKey_xs7mf")]
+[sub_resource type="Shortcut" id="Shortcut_1bvp3"]
+events = [SubResource("InputEventKey_h2yge")]
 
-[sub_resource type="InputEventKey" id="InputEventKey_ln8ok"]
+[sub_resource type="InputEventKey" id="InputEventKey_0xm2m"]
 device = -1
-ctrl_pressed = true
+command_or_control_autoremap = true
 keycode = 86
 
-[sub_resource type="Shortcut" id="Shortcut_thvof"]
-events = [SubResource("InputEventKey_ln8ok")]
+[sub_resource type="Shortcut" id="Shortcut_h2yge"]
+events = [SubResource("InputEventKey_0xm2m")]
 
-[sub_resource type="InputEventKey" id="InputEventKey_akudl"]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5vw27"]
+content_margin_left = 0.0
+content_margin_top = 4.0
+content_margin_right = 0.0
+content_margin_bottom = 4.0
+color = Color(0.8352941, 0.8352941, 0.8352941, 1)
+grow_begin = -2.0
+grow_end = -2.0
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_272bh"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[sub_resource type="InputEventKey" id="InputEventKey_1bvp3"]
 device = -1
-ctrl_pressed = true
+command_or_control_autoremap = true
 keycode = 48
 
-[sub_resource type="Shortcut" id="Shortcut_45xeh"]
-events = [SubResource("InputEventKey_akudl")]
+[sub_resource type="Shortcut" id="Shortcut_lquwl"]
+events = [SubResource("InputEventKey_1bvp3")]
 
-[node name="Main" type="Control" node_paths=PackedStringArray("the_image", "toolbar", "controls", "file_dialog")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kek77"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ks6fm")
+
+[node name="TheImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_2cqfq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1bvp3")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_272bh")
+stretch_mode = 1
+
+[node name="Ui" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="UnderUi" type="Control" parent="Ui"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ks6fm")
-the_image = NodePath("TheImage")
-toolbar = NodePath("Toolbar")
-controls = NodePath("Controls")
-file_dialog = NodePath("FileDialog")
 
-[node name="NoImage" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -68.0
-offset_right = 128.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "No image loaded."
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TheImage" type="TextureRect" parent="."]
-texture_filter = 2
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(576, 320)
-mouse_default_cursor_shape = 6
-texture = ExtResource("2_wtfm7")
-expand_mode = 2
-stretch_mode = 5
+mouse_filter = 2
 
-[node name="Toolbar" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -48.0
-offset_bottom = -16.0
-grow_horizontal = 2
+[node name="TopPanel" type="PanelContainer" parent="Ui/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
 
-[node name="HFlowContainer" type="HFlowContainer" parent="Toolbar"]
+[node name="HFlowContainer" type="HFlowContainer" parent="Ui/VBoxContainer/TopPanel"]
 layout_mode = 2
 
-[node name="Open" type="Button" parent="Toolbar/HFlowContainer"]
+[node name="Open" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
-tooltip_text = "Open an image"
-shortcut = SubResource("Shortcut_wcgqs")
-text = "Open"
+size_flags_vertical = 4
+tooltip_text = "Load an image from the disk."
+shortcut = SubResource("Shortcut_1bvp3")
+icon = ExtResource("5_dg77c")
 
-[node name="Paste" type="Button" parent="Toolbar/HFlowContainer"]
+[node name="Paste" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
-tooltip_text = "Paste an image from the clipboard"
-shortcut = SubResource("Shortcut_thvof")
-text = "Paste"
+size_flags_vertical = 4
+tooltip_text = "Paste an image from the clipboard."
+shortcut = SubResource("Shortcut_h2yge")
+icon = ExtResource("6_ycdy4")
 
-[node name="Filler" type="Control" parent="Toolbar/HFlowContainer"]
+[node name="Drag" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 6
+icon = ExtResource("5_4c57u")
+flat = true
+icon_alignment = 1
+script = ExtResource("6_efxa6")
 
-[node name="LockControls" type="CheckButton" parent="Toolbar/HFlowContainer"]
+[node name="Settings" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
-tooltip_text = "Toggle the pan and zoom controls"
-text = "Lock Pan/Zoom"
+size_flags_vertical = 4
+tooltip_text = "Open the display settings."
+icon = ExtResource("9_w48qg")
 
-[node name="NearestNeighbor" type="CheckButton" parent="Toolbar/HFlowContainer"]
+[node name="VSeparator" type="VSeparator" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
-tooltip_text = "Toggle between Linear (blurry) and Nearest Neighbor (pixely) filters"
-text = "Nearest Neighbor"
+theme_override_styles/separator = SubResource("StyleBoxLine_5vw27")
 
-[node name="Controls" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="HFlowContainer" type="HFlowContainer" parent="Controls"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer/TopPanel/HFlowContainer"]
 layout_mode = 2
-alignment = 2
 
-[node name="Zoom" type="HSlider" parent="Controls/HFlowContainer" node_paths=PackedStringArray("label", "the_image")]
+[node name="Help" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Show help window."
+icon = ExtResource("10_2cqfq")
+flat = true
+
+[node name="Minimize" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Minimize."
+icon = ExtResource("4_7mycd")
+flat = true
+
+[node name="Close" type="Button" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Close."
+icon = ExtResource("5_272bh")
+flat = true
+
+[node name="Spacing" type="Control" parent="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="BottomPanel" type="PanelContainer" parent="Ui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_272bh")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Ui/VBoxContainer/BottomPanel"]
+layout_mode = 2
+
+[node name="ZoomBar" type="HSlider" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
-tooltip_text = "(Zoom in: Ctrl+= / Zoom out: Ctrl+-)
-The image's zoom"
+tooltip_text = "(Ctrl+=/Ctrl+- or scroll)
+Zoom in/out."
 min_value = 50.0
 max_value = 1600.0
+step = 10.0
 value = 100.0
 exp_edit = true
 scrollable = false
-script = ExtResource("2_8gn1b")
-label = NodePath("../ZoomLabel")
-the_image = NodePath("../../../TheImage")
+script = ExtResource("3_h2yge")
 
-[node name="ZoomLabel" type="Label" parent="Controls/HFlowContainer"]
-custom_minimum_size = Vector2(55, 0)
+[node name="ZoomLabel" type="Label" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
 text = "%d%%"
+horizontal_alignment = 2
 
-[node name="Filler" type="Control" parent="Controls/HFlowContainer"]
+[node name="ResetZoom" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
+tooltip_text = "Set the zoom to 100%."
+shortcut = SubResource("Shortcut_lquwl")
+text = "1:1"
 
-[node name="Panner" type="Node2D" parent="Controls/HFlowContainer" node_paths=PackedStringArray("the_image")]
-script = ExtResource("4_1vgt2")
-the_image = NodePath("../../../TheImage")
-
-[node name="Zoom100Percent" type="Button" parent="Controls/HFlowContainer"]
+[node name="FitToScreen" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
 layout_mode = 2
-tooltip_text = "Set zoom to 100%"
-shortcut = SubResource("Shortcut_45xeh")
-text = "100%"
+tooltip_text = "Fit to Screen."
+text = "Fit"
 
-[node name="CenterImage" type="Button" parent="Controls/HFlowContainer"]
+[node name="CropScreen" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
 layout_mode = 2
-tooltip_text = "Move the image to the center of the screen"
+tooltip_text = "Crop the window to fit the image."
+text = "Crop"
+
+[node name="CenterImage" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+tooltip_text = "Reset the image's position."
 text = "Center Image"
 
-[node name="FileDialog" type="FileDialog" parent="."]
-title = "Open a File"
+[node name="Resize" type="Button" parent="Ui/VBoxContainer/BottomPanel/HFlowContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kek77")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kek77")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kek77")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kek77")
+icon = ExtResource("8_5vw27")
+icon_alignment = 2
+vertical_icon_alignment = 2
+script = ExtResource("6_efxa6")
+function = 1
+
+[node name="OpenImage" type="FileDialog" parent="Ui"]
+unique_name_in_owner = true
+title = "Open an Image"
 ok_button_text = "Open"
+mode_overrides_title = false
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.bmp ; BMP", "*.dds ; DirectDraw Surface", "*.ktx ; Khronos Texture", "*.exr ; OpenEXR", "*.hdr ; Radiance HDR", "*.jpg, *.jpeg ; JPEG", "*.png ; PNG", "*.svg ; SVG (limited support)", "*.webp ; WebP")
 
-[connection signal="resized" from="." to="." method="_on_resized"]
-[connection signal="mouse_entered" from="TheImage" to="Controls/HFlowContainer/Panner" method="_on_the_image_mouse_entered"]
-[connection signal="mouse_exited" from="TheImage" to="Controls/HFlowContainer/Panner" method="_on_the_image_mouse_exited"]
-[connection signal="pressed" from="Toolbar/HFlowContainer/Open" to="." method="_on_open_pressed"]
-[connection signal="pressed" from="Toolbar/HFlowContainer/Paste" to="." method="_on_paste_pressed"]
-[connection signal="toggled" from="Toolbar/HFlowContainer/LockControls" to="." method="_on_lock_controls_toggled"]
-[connection signal="toggled" from="Toolbar/HFlowContainer/NearestNeighbor" to="." method="_on_nearest_neighbor_toggled"]
-[connection signal="drag_ended" from="Controls/HFlowContainer/Zoom" to="Controls/HFlowContainer/Zoom" method="_on_drag_ended"]
-[connection signal="drag_started" from="Controls/HFlowContainer/Zoom" to="Controls/HFlowContainer/Zoom" method="_on_drag_started"]
-[connection signal="pressed" from="Controls/HFlowContainer/Zoom100Percent" to="Controls/HFlowContainer/Zoom" method="_on_zoom_100_percent_pressed"]
-[connection signal="pressed" from="Controls/HFlowContainer/CenterImage" to="Controls/HFlowContainer/Panner" method="_on_center_image_pressed"]
-[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[node name="Settings" parent="." node_paths=PackedStringArray("background", "the_image") instance=ExtResource("13_ycdy4")]
+visible = false
+background = NodePath("../Background/TextureRect")
+the_image = NodePath("../TheImage")
+
+[node name="HelpWindow" type="AcceptDialog" parent="."]
+oversampling_override = 1.0
+title = "About %s %s"
+size = Vector2i(512, 384)
+popup_window = true
+min_size = Vector2i(512, 0)
+ok_button_text = "Close"
+script = ExtResource("16_yaehf")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HelpWindow"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 335.0
+bbcode_enabled = true
+text = "%s
+
+[ul]
+[img]res://icons/open.svg[/img]: Load image from disk.
+[img]res://icons/paste.svg[/img]: Paste image from the clipboard.
+[img]res://icons/drag.svg[/img] [img]res://icons/resize.svg[/img]: Move/resize window.
+[img]res://icons/settings.svg[/img]: Change display settings (see below).
+Click + Drag: Move image. Press \"Center Image\" to reset the view.
+Scroll/Bottom-left Slider: Zoom in/out. Press \"1:1\" to reset the zoom and \"Fit\" to fit the image to the window.
+\"Crop\" moves and resizes the window such that it exactly fits the image.
+[/ul]
+
+Hover over the controls to see their shortcuts.
+
+Display settings:
+
+[ul]
+Filter: Image resize filter
+Background: Background color/transparency
+[/ul]"
+
+[connection signal="gui_input" from="Ui/UnderUi" to="Camera2D" method="_on_under_ui_gui_input"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Open" to="." method="_on_open_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Paste" to="." method="_on_paste_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/Settings" to="Settings" method="popup_centered"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Help" to="HelpWindow" method="popup_centered"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Minimize" to="." method="_on_minimize_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/TopPanel/HFlowContainer/HBoxContainer/Close" to="." method="_on_close_pressed"]
+[connection signal="value_changed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_value_changed"]
+[connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/ResetZoom" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_reset_zoom_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/FitToScreen" to="Ui/VBoxContainer/BottomPanel/HFlowContainer/ZoomBar" method="_on_fit_to_screen_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/CropScreen" to="." method="_on_crop_screen_pressed"]
+[connection signal="pressed" from="Ui/VBoxContainer/BottomPanel/HFlowContainer/CenterImage" to="Camera2D" method="_on_center_image_pressed"]
+[connection signal="canceled" from="Ui/OpenImage" to="." method="_on_open_image_canceled"]
+[connection signal="file_selected" from="Ui/OpenImage" to="." method="_on_open_image_file_selected"]
